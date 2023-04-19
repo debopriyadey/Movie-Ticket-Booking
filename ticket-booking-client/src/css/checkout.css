@@ -1,0 +1,41 @@
+.checkout-sec {
+    padding: 10px;
+    text-align: left;
+}
+
+.user-form {
+    text-align: left;
+    margin: 10px;
+}
+
+.ticket-card {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.transbox {
+    background-color: rgba(34, 33, 33, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
+    padding: 10px;
+    margin: 200px 0px 0px 00px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.tickets-detail {
+    padding: 10px;
+    margin-top: 10px;
+    text-align: left;
+    color: black;
+}
+
+.hdr {
+    font-weight: 800;
+}
+
+.bar-code {
+    width: 100% !important;
+    display: flex;
+}

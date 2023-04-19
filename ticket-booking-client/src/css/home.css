@@ -1,0 +1,39 @@
+.home-sec {
+    background-color: #203cbe;
+    color: #fff;
+    /* padding-top: 10px; */
+    text-align: left;
+    min-height: 100vh;
+}
+
+.carousel {
+    max-height: 70vh;
+    border-radius: 0px 0px 20px 20px;
+    /* margin-bottom: -80vh; */
+}
+
+.carousel-status {
+    display: none !important;
+}
+
+.thumbs {
+   display: none;
+}
+
+.premium {
+    background-color: #1f1f1f;
+   padding: 30px;
+   margin-top: 100px;
+   border-radius: 20px;
+}
+
+.grad {
+    height: 200px;
+    background: rgb(32,60,190);
+    background: linear-gradient(180deg, rgba(32,60,190,1) 0%, rgba(12,28,227,1) 100%);
+}
+
+.footer {
+    background-image: url("../images//footer.jpg");
+    height: 100px;
+}

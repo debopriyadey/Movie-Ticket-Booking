@@ -1,0 +1,31 @@
+.movie-form-sec {
+    /* background-image: url("https://wallpaperaccess.com/full/1770495.png"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.movie-form-cont {
+    /* max-width: 700px;
+    padding: 30px;
+    margin: 30px; */
+    padding: 20px;
+    background-color: rgba(34, 33, 33, 0.4);
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    /* text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
+}
+
+label {
+    color: #fff;
+    font-weight: 800;
+    font-size: 20px !important;
+}
+
+.form-group {
+    margin: 10px;
+    text-align: left;
+}
