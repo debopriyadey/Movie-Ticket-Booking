@@ -2,18 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [role, setRole] = useState(false);
 
   const logout = () => {
-    sessionStorage.removeItem("isAdmin");
+    sessionStorage.clear();
+    let userType = sessionStorage.getItem("role");
+    if (userType) {
+      setRole(userType);
+    }
   };
 
   useEffect(() => {
-    let admin = sessionStorage.getItem("isAdmin");
-    if (admin) {
-      setIsAdmin(true);
+    let userType = sessionStorage.getItem("role");
+    if (userType) {
+      setRole(userType);
     }
   }, []);
+
+  // useEffect(() => {
+  //   let admin = sessionStorage.getItem("isAdmin");
+  //   if (admin) {
+  //     setIsAdmin(true);
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -50,15 +61,15 @@ export default function Navbar() {
               <li class="nav-item">
                 <Link to="/tickets" class="nav-link active">
                   <p style={{ color: "#fff", marginBottom: "0px" }}>
-                    {isAdmin ? "View Bookings" : "Book Ticket"}
+                    {role == 'admin' ? "View Bookings" : "Book Ticket"}
                   </p>
                 </Link>
               </li>
-              {isAdmin &&
+              {role == "admin" &&
                 <li class="nav-item">
-                  <Link to="/form" class="nav-link active">
+                  <Link to="/movielist" class="nav-link active">
                     <p style={{ color: "#fff", marginBottom: "0px" }}>
-                      Update Details
+                      Movie List
                     </p>
                   </Link>
                 </li>}
@@ -75,7 +86,7 @@ export default function Navbar() {
                 placeholder="Search"
                 aria-label="Search"
               /> */}
-              {isAdmin
+              {role
                 ? <Link to="/">
                     <button
                       class="btn btn-outline-success"
@@ -85,11 +96,19 @@ export default function Navbar() {
                       Log Out
                     </button>
                   </Link>
-                : <Link to="/login">
-                    <button class="btn btn-outline-success" type="submit">
-                      Admin
-                    </button>
-                  </Link>}
+                : <div>
+                    <Link to="/login">
+                      <button class="btn btn-outline-success" type="submit">
+                        Login
+                      </button>
+                    </Link>
+                    <span className="p-2"></span>
+                    <Link to="/register">
+                      <button class="btn btn-outline-success" type="submit">
+                        Register
+                      </button>
+                    </Link>
+                  </div>}
             </form>
           </div>
         </div>

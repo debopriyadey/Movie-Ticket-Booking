@@ -7,8 +7,10 @@ import { movie } from "../assets/data/movieDb";
 import Navbar from "../components/Navbar";
 
 import "../css/tickets.css";
-import { boocked } from "../assets/data/bookings";
+// import { boocked } from "../assets/data/bookings";
 import { Link, redirect } from "react-router-dom";
+import { getCurrentMovie } from "../api/movieApi";
+import { getBookingByDateAndShift } from "../api/bookingApi";
 
 const customStyles = {
     content: {
@@ -23,6 +25,19 @@ const customStyles = {
     },
   };
 
+
+  const boocked = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
 export default function Tickets() {
   const [dates, setDates] = useState([]);
   const [booking, setBooking] = useState(boocked)
@@ -34,6 +49,7 @@ export default function Tickets() {
     tm: ''
   });
   const alpha = ['A','B', 'C','D','E','F','G','H', 'I']
+  const [currMovie, setCurrMovie] = useState();
 
   useEffect(() => {
     let admin = sessionStorage.getItem("isAdmin");
@@ -46,6 +62,18 @@ export default function Tickets() {
   }
 
   function closeModal() {
+    setBooking([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ])
+    setSeats([])
     setIsOpen(false);
   }
 
@@ -63,6 +91,36 @@ export default function Tickets() {
   }
 
   const selectDT = (dt, tm) => {
+    let queryDate = moment(dt).format('L')
+    getBookingByDateAndShift({screeningDate:  queryDate, screeningShift: tm}).then((res) => {
+      console.log(booking)
+      if (res.length > 0) {
+        res.map((bookedSeats) => {
+          if (bookedSeats.seats.length > 0) {
+            bookedSeats.seats.map((seat) => {
+              let alphaRow = seat.substr(0, 1)
+              let colNumber = Number(seat.substr(1))
+              let rowNumber = alpha.indexOf(alphaRow)
+              var tempArr = booking;
+              tempArr[colNumber][rowNumber] = 1;
+              setBooking([...tempArr])
+            })
+          }
+        })
+      } else {
+        setBooking([
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ])
+      }
+    })
     setDateTime({dt, tm})
     openModal()
   }
@@ -78,27 +136,28 @@ export default function Tickets() {
   }, []);
 
   useEffect(() => {
+    getCurrentMovie().then(res => {
+      setCurrMovie(res);
+    });
     let admin = sessionStorage.getItem("isAdmin");
     if(admin) {
       setIsAdmin(true)
     }
   }, [])
 
-  console.log(dates);
-
   return (
     <div className="ticket-sec">
-      {movie &&
+      {currMovie &&
         <div
           className="ticket-header"
-          style={{ backgroundImage: `url("${movie.backdrop_path}")` }}
+          style={{ backgroundImage: `url("${currMovie.bgImg}")` }}
         >
           <Navbar />
           <div className="movie-details">
-            <img src={movie.poster_path} className="movie-poster" />
+            <img src={currMovie.poster} className="movie-poster" />
             <div className="details-text">
-                <p>{movie.title}</p>
-                <p>Director: {movie.director}</p>
+                <p>{currMovie.title}</p>
+                <p>Director: {currMovie.director}</p>
             </div>
           </div>
 
@@ -113,15 +172,15 @@ export default function Tickets() {
                   <small>{moment(dt).format("dddd")}</small>
                   </div>
                   <div className="col-sm-12 col-md-8  col-lg-9 ticket-time-cont">
-                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "10:30A")}>
+                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "morning")}>
                       <p className="tm">10:30A</p>
                       <p className="tm-info">3D • <MdClosedCaptionOff size={20} /> Eng </p>
                     </div>
-                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "2:00P")}>
+                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "noon")}>
                       <p className="tm">2:00P</p>
                       <p className="tm-info">4DX-3D • <MdClosedCaptionOff size={20} /> Eng </p>
                     </div>
-                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "6:30P")}>
+                    <div className="ticket-time-block" onClick={(e) => selectDT(dt, "evening")}>
                       <p className="tm">6:30P</p>
                       <p className="tm-info">IMAX 3D • <MdClosedCaptionOff size={20} /> Eng </p>
                     </div>
@@ -151,7 +210,7 @@ export default function Tickets() {
                             className={"seats " + (seat == -1 ? 'selected' : seat == 1 ? 'filled' : 'empty')} 
                             onClick={() => {seat == 1 || seat == -1 || isAdmin ? doNothing() : handleSeatSelect(ri, ci)}}
                             // disable={seat == 1 || seat == -1 ? true : false}
-                            >{" "}</div>
+                            >{" "} </div>
                         ))}
                     </th>
                 ))}

@@ -47,12 +47,12 @@
 }
 
 .col-details {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-start;
     flex-wrap: wrap;
-    align-content: flex-end;
+    align-content: flex-end; */
 }
 
 .details {

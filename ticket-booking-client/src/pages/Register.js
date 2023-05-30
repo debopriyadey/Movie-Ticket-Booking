@@ -3,27 +3,28 @@ import React, { useState } from "react";
 import { admin } from "../assets/data/admin";
 import "../css/login.css";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/userApi";
+import { register } from "../api/userApi";
 
-export default function Login() {
+export default function Register() {
   const [userDetails, setUserDetails] = useState({
+    name: "",
     email: "",
-    password: ""
+    password: "",
+    role: "user"
   });
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const checkAdmin = (e) => {
     e.preventDefault()
-    login(userDetails).then((res) => {
+    register(userDetails).then((res) => {
       Object.keys(res).forEach (function(key, index) {
         sessionStorage.setItem(key, res[key])
       })
-      navigate('/')
     }).catch((err) => {
-      alert("Invalid Credential")
+      alert("Email Already Exists")
     })
-  }
+  };
 
   return (
     <div className="login-sec">
@@ -34,11 +35,25 @@ export default function Login() {
             <div class="col-lg-12 login-key">
               <i class="fa fa-key" aria-hidden="true" />
             </div>
-            <div class="col-lg-12 login-title">Login</div>
+            <div class="col-lg-12 login-title">Register</div>
 
             <div class="col-lg-12 login-form">
               <div class="col-lg-12 login-form">
                 <form>
+                <div class="form-group">
+                    {/* <label class="form-control-label">USERNAME</label> */}
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="USERNAME"
+                      value={userDetails.name}
+                      onChange={e =>
+                        setUserDetails({
+                          ...userDetails,
+                          name: e.target.value
+                        })}
+                    />
+                  </div>
                   <div class="form-group">
                     {/* <label class="form-control-label">USERNAME</label> */}
                     <input
@@ -46,8 +61,11 @@ export default function Login() {
                       class="form-control"
                       placeholder="EMAIL"
                       value={userDetails.email}
-                      onChange={(e) =>
-                        setUserDetails({ ...userDetails, email: e.target.value })}
+                      onChange={e =>
+                        setUserDetails({
+                          ...userDetails,
+                          email: e.target.value
+                        })}
                     />
                   </div>
                   <div class="form-group">
@@ -57,8 +75,11 @@ export default function Login() {
                       class="form-control"
                       placeholder="PASSWORD"
                       value={userDetails.password}
-                      onChange={(e) =>
-                        setUserDetails({...userDetails, password: e.target.value })}
+                      onChange={e =>
+                        setUserDetails({
+                          ...userDetails,
+                          password: e.target.value
+                        })}
                       i
                     />
                   </div>
@@ -66,7 +87,11 @@ export default function Login() {
                   <div class="col-lg-12 loginbttm">
                     <div class="col-lg-6 login-btm login-text" />
                     <div class="col-lg-6 login-btm login-button">
-                      <button type="submit" class="btn btn-outline-primary" onClick={handleLogin}>
+                      <button
+                        type="submit"
+                        class="btn btn-outline-primary"
+                        onClick={checkAdmin}
+                      >
                         LOGIN
                       </button>
                     </div>

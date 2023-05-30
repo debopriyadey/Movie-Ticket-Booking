@@ -1,35 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/form.css";
 import Navbar from "../components/Navbar";
+import { getCurrentMovie, insertMovie } from "../api/movieApi";
 
 export default function MovieForm() {
   const [movie, setMovie] = useState({
-    title: "Avatar: The Way of Water",
-    backdrop_path:
-      "https://media.cnn.com/api/v1/images/stellar/prod/221124100418-avatar-the-way-of-water-2022.jpg?c=original",
-    poster_path:
-      "https://m.media-amazon.com/images/M/MV5BNjA3NGExZDktNDlhZC00NjYyLTgwNmUtZWUzMDYwMTZjZWUyXkEyXkFqcGdeQXVyMTU1MDM3NDk0._V1_FMjpg_UX1000_.jpg",
-    release_date: "16 December 2022",
-    original_language: "English",
-    runtime: "120",
-    rating: "R",
-    casts: [
-      "Zoe Saldaña",
-      "Sam Worthington",
-      "Sigourney Weaver",
-      "Michelle Rodriguez",
-      "Joel David Moore"
-    ],
-    director: "James Cameron",
-    overview:
-      "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+    title: "",
+    bgImg: "",
+    poster: "",
+    releaseDate: "",
+    language: "",
+    runtime: "",
+    rating: "",
+    director: "",
+    description: "",
+    trailer: "",
+    screening: true,
     price: 180
   });
+
+  const handleAddMovie = () => {
+    insertMovie(movie).then(res => {
+      alert("Successfully added new movie");
+    });
+  };
+
+  useEffect(() => {
+    getCurrentMovie((res) => {
+      setMovie(res)
+    })
+  },[])
 
   return (
     <div
       className="movie-form-sec"
-      style={{ backgroundImage: `url("${movie.backdrop_path}")` }}
+      style={{ backgroundImage: `url("${movie.bgImg}")` }}
     >
       <Navbar />
       <div className="container mt-5 py-5">
@@ -78,10 +83,9 @@ export default function MovieForm() {
                 <input
                   type="text"
                   class="form-control"
-                  id="backdrop_path"
-                  onChange={e =>
-                    setMovie({ ...movie, backdrop_path: e.target.value })}
-                  value={movie.backdrop_path}
+                  id="bgImg"
+                  onChange={e => setMovie({ ...movie, bgImg: e.target.value })}
+                  value={movie.bgImg}
                 />
               </div>
             </div>
@@ -95,10 +99,25 @@ export default function MovieForm() {
                   type="text"
                   readonly
                   class="form-control"
-                  id="poster_path"
-                  onChange={e =>
-                    setMovie({ ...movie, poster_path: e.target.value })}
-                  value={movie.poster_path}
+                  id="poster"
+                  onChange={e => setMovie({ ...movie, poster: e.target.value })}
+                  value={movie.poster}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-12 col-md-12">
+            <div class="form-group row">
+              <label class="col-form-label">Trailer</label>
+              <br />
+              <div class="">
+                <input
+                  type="text"
+                  readonly
+                  class="form-control"
+                  id="trailer"
+                  onChange={e => setMovie({ ...movie, trailer: e.target.value })}
+                  value={movie.trailer}
                 />
               </div>
             </div>
@@ -112,10 +131,10 @@ export default function MovieForm() {
                   type="text"
                   readonly
                   class="form-control"
-                  id="release_date"
+                  id="releaseDate"
                   onChange={e =>
-                    setMovie({ ...movie, release_date: e.target.value })}
-                  value={movie.release_date}
+                    setMovie({ ...movie, releaseDate: e.target.value })}
+                  value={movie.releaseDate}
                 />
               </div>
             </div>
@@ -129,10 +148,10 @@ export default function MovieForm() {
                   type="text"
                   readonly
                   class="form-control"
-                  id="original_language"
+                  id="language"
                   onChange={e =>
-                    setMovie({ ...movie, original_language: e.target.value })}
-                  value={movie.original_language}
+                    setMovie({ ...movie, language: e.target.value })}
+                  value={movie.language}
                 />
               </div>
             </div>
@@ -181,10 +200,10 @@ export default function MovieForm() {
                   type="text"
                   readonly
                   class="form-control"
-                  id="overview"
+                  id="description"
                   onChange={e =>
-                    setMovie({ ...movie, overview: e.target.value })}
-                  value={movie.overview}
+                    setMovie({ ...movie, description: e.target.value })}
+                  value={movie.description}
                 />{" "}
               </div>
             </div>
@@ -206,7 +225,9 @@ export default function MovieForm() {
             </div>
             {/* </form> */}
           </div>
-          <button className="btn btn-primary w-100">Save Details</button>
+          <button className="btn btn-primary w-100" onClick={handleAddMovie}>
+            Save Details
+          </button>
         </div>
       </div>
     </div>

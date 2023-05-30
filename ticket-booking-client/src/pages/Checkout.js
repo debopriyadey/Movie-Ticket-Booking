@@ -7,6 +7,9 @@ import { movie } from "../assets/data/movieDb";
 
 import "../css/checkout.css";
 import { useSearchParams } from "react-router-dom";
+import { register } from "../api/userApi";
+import { insertBooking } from "../api/bookingApi";
+import { getCurrentMovie } from "../api/movieApi";
 
 export default function Checkout() {
   const [showPayment, setShowPayment] = useState(false);
@@ -17,28 +20,59 @@ export default function Checkout() {
   const [time, setTime] = useState("");
   const [rand, setRand] = useState("");
   const [user, setUser] = useState({
-    name: "",
-    phone: ""
+    name: sessionStorage.getItem('name'),
+    email: sessionStorage.getItem('email'),
+    role: "user"
+  });
+  const [userId, setUserId] = useState();
+  const [movieId, setMovieId] = useState();
+  const [booking, setBooking] = useState({
+    movieId: "",
+    userId: sessionStorage.getItem('id'),
+    screeningDate: "",
+    screeningShift: "",
+    seats: []
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setUserDetails = () => {
-    if (user.name !== "" && user.phone !== "") {
+    if (user.name !== "" && user.email !== "") {
       setShowPayment(true);
     } else {
       alert("Fill all details");
     }
   };
 
+  const handleConfirmPayment = () => {
+    getCurrentMovie((res) => {
+      setBooking({ ...booking, movieId: res.id });
+    });
+    let dt = moment(date).format("L");
+    setBooking({
+      ...booking,
+      screeningDate: dt,
+      screeningShift: time,
+      seats: [...seats],
+    });
+    setShowTicket(true)
+  };
+
+  const handleBooking = () => {
+    insertBooking(booking).then(res => {
+      setGenerate(true)
+    });
+    alert("Congratulations Booking Confirmed")
+  }
+
   useEffect(() => {
     var seats = searchParams.get("seats").toString();
     var array = seats.split(",");
-    setSeats(array);
+    setSeats([...array]);
     setDate(searchParams.get("date"));
     setTime(searchParams.get("time"));
-    var random = (Math.random() * 1000000).toString()
-    setRand(random.replace(".", ''))
+    var random = (Math.random() * 1000000).toString();
+    setRand(random.replace(".", ""));
   }, []);
 
   return (
@@ -100,16 +134,16 @@ export default function Checkout() {
                                   className="mx-2 mt-2"
                                   style={{ color: "#1a1a1a" }}
                                 >
-                                  Your Phone Number
+                                  Your Email ID
                                 </label>
                                 <input
                                   type="text"
                                   class="form-control"
-                                  name="Phone number"
-                                  autoComplete="Phone Number"
+                                  name="email"
+                                  autoComplete="email"
                                   onChange={e =>
-                                    setUser({ ...user, phone: e.target.value })}
-                                  value={user.phone}
+                                    setUser({ ...user, email: e.target.value })}
+                                  value={user.email}
                                 />
                               </div>
                             </form>
@@ -157,16 +191,17 @@ export default function Checkout() {
                                 )}
                               </p>
                               <p>
-                                AMOUNT : {seats.length} X {movie.price} = {seats.length * movie.price}
+                                AMOUNT : {seats.length} X {movie.price} ={" "}
+                                {seats.length * movie.price}
                               </p>
                               <br />
                               <button
-                                onClick={() => setShowTicket(true)}
                                 className="btn btn-primary"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#collapseThree"
                                 aria-expanded="false"
                                 aria-controls="collapseThree"
+                                onClick={handleConfirmPayment}
                               >
                                 Confirm Payment
                               </button>
@@ -198,7 +233,7 @@ export default function Checkout() {
                                 NAME : {user.name}
                               </p>
                               <p>
-                                PHONE : {user.phone}
+                                Email : {user.email}
                               </p>
                               <p>
                                 SEATS:{" "}
@@ -208,13 +243,19 @@ export default function Checkout() {
                                   </span>
                                 )}
                               </p>
-                              <p>SHOW: {moment(date).format("dddd, MMM Do YYYY")+" | "+time}</p>
+                              <p>
+                                SHOW:{" "}
+                                {moment(date).format("dddd, MMM Do YYYY") +
+                                  " | " +
+                                  time}
+                              </p>
                               <p>
                                 AMOUNT : {seats.length * movie.price}
                               </p>
                               <button
-                                onClick={() => setGenerate(true)}
+                                onClick={handleBooking}
                                 className="btn btn-primary"
+
                               >
                                 Generate Ticket
                               </button>
@@ -232,20 +273,21 @@ export default function Checkout() {
               class="card mt-5 ticket-card"
               style={{
                 width: "18rem",
-                backgroundImage: `url("${movie.backdrop_path}")`
+                backgroundImage: `url(https://images.unsplash.com/photo-1545129139-1beb780cf337?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80)`
               }}
             >
               <div class="transbox text-center">
                 {generate &&
-                  <>
+                  <div>
                     <div class="card-header">YOU'VE GOT TICKETS!</div>
                     <small>You may use the code below at entrance</small>
-                  </>
-                }
+                  </div>}
                 <div className="card tickets-detail">
                   <h3>MOVIE CAFE</h3>
                   <h5 className="hdr">ONWARD</h5>
-                  <small>{moment(date).format("dddd, MMM Do YYYY")} | {time}</small>
+                  <small>
+                    {moment(date).format("dddd, MMM Do YYYY")} | {time}
+                  </small>
                   {showTicket &&
                     <small>
                       SEATS:{" "}
