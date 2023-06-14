@@ -92,7 +92,7 @@ export default function Register() {
                         class="btn btn-outline-primary"
                         onClick={checkAdmin}
                       >
-                        LOGIN
+                        REGISTER
                       </button>
                     </div>
                   </div>

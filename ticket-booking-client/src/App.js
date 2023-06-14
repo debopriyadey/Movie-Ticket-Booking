@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-        <Route path="*" element={<Login />}/>
+          <Route path="*" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/login" element={<Login />} />
@@ -34,6 +34,7 @@ function App() {
             <>
               <Route path="/addmovies" element={<MovieForm />} />
               <Route path="/movielist" element={<MovieList />} />
+              <Route path="/tickets" element={<Tickets />} />
             </>}
           {role == "user" &&
             <>
