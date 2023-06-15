@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { admin } from "../assets/data/admin";
 import "../css/login.css";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/userApi";
+import { UserContext } from "../context";
 
 export default function Register() {
+
+  const { user, setUser } = useContext(UserContext)
+
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
@@ -18,9 +22,7 @@ export default function Register() {
   const checkAdmin = (e) => {
     e.preventDefault()
     register(userDetails).then((res) => {
-      Object.keys(res).forEach (function(key, index) {
-        sessionStorage.setItem(key, res[key])
-      })
+      setUser(res)
     }).catch((err) => {
       alert("Email Already Exists")
     })

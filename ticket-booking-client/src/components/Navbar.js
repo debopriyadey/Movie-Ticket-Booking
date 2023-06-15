@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context";
 
 export default function Navbar() {
   const [role, setRole] = useState(false);
 
+  const { user, setUser } = useContext(UserContext);
+
   const logout = () => {
-    sessionStorage.clear();
-    let userType = sessionStorage.getItem("role");
-    if (userType) {
-      setRole(userType);
-    }
+    setUser({
+      name: "",
+      email: "",
+      role: ""
+    })
   };
-
-  useEffect(() => {
-    let userType = sessionStorage.getItem("role");
-    if (userType) {
-      setRole(userType);
-    }
-  }, []);
-
-  // useEffect(() => {
-  //   let admin = sessionStorage.getItem("isAdmin");
-  //   if (admin) {
-  //     setIsAdmin(true);
-  //   }
-  // }, []);
 
   return (
     <div>
@@ -65,7 +54,7 @@ export default function Navbar() {
                   </p>
                 </Link>
               </li>
-              {role == "admin" &&
+              {user.role == "admin" &&
                 <li class="nav-item">
                   <Link to="/movielist" class="nav-link active">
                     <p style={{ color: "#fff", marginBottom: "0px" }}>
@@ -73,42 +62,31 @@ export default function Navbar() {
                     </p>
                   </Link>
                 </li>}
-              {/* <li class="nav-item">
-                <Link to="/" class="nav-link active">
-                  Contact
-                </Link>
-              </li> */}
             </ul>
             <form class="d-flex" role="search">
-              {/* <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              /> */}
-              {role
+              {user.role
                 ? <Link to="/">
-                    <button
-                      class="btn btn-outline-success"
-                      type="submit"
-                      onClick={logout}
-                    >
-                      Log Out
+                  <button
+                    class="btn btn-outline-success"
+                    type="submit"
+                    onClick={logout}
+                  >
+                    Log Out
+                  </button>
+                </Link>
+                : <div>
+                  <Link to="/login">
+                    <button class="btn btn-outline-success" type="submit">
+                      Login
                     </button>
                   </Link>
-                : <div>
-                    <Link to="/login">
-                      <button class="btn btn-outline-success" type="submit">
-                        Login
-                      </button>
-                    </Link>
-                    <span className="p-2"></span>
-                    <Link to="/register">
-                      <button class="btn btn-outline-success" type="submit">
-                        Register
-                      </button>
-                    </Link>
-                  </div>}
+                  <span className="p-2"></span>
+                  <Link to="/register">
+                    <button class="btn btn-outline-success" type="submit">
+                      Register
+                    </button>
+                  </Link>
+                </div>}
             </form>
           </div>
         </div>

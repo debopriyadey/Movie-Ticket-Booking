@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-export const userContext = createContext({
+export const UserContext = createContext({
+    id: "",
     name: "",
     email: "",
-    password: "",
     role: ""
 });
 
-export const movieContext = createContext({
+export const MovieContext = createContext({
     movieId: ""
 })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Barcode from "react-barcode";
 import moment from "moment";
 
@@ -10,8 +10,10 @@ import { useSearchParams } from "react-router-dom";
 import { register } from "../api/userApi";
 import { insertBooking } from "../api/bookingApi";
 import { getCurrentMovie } from "../api/movieApi";
+import { UserContext } from "../context";
 
 export default function Checkout() {
+  const { user, setUser } = useContext(UserContext);
   const [showPayment, setShowPayment] = useState(false);
   const [showTicket, setShowTicket] = useState(false);
   const [generate, setGenerate] = useState(false);
@@ -19,16 +21,10 @@ export default function Checkout() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [rand, setRand] = useState("");
-  const [user, setUser] = useState({
-    name: sessionStorage.getItem('name'),
-    email: sessionStorage.getItem('email'),
-    role: "user"
-  });
-  const [userId, setUserId] = useState();
   const [movieId, setMovieId] = useState();
   const [booking, setBooking] = useState({
     movieId: "",
-    userId: sessionStorage.getItem('id'),
+    userId: user.id,
     screeningDate: "",
     screeningShift: "",
     seats: []
@@ -123,8 +119,6 @@ export default function Checkout() {
                                   class="form-control"
                                   name="Firstname"
                                   autoComplete
-                                  onChange={e =>
-                                    setUser({ ...user, name: e.target.value })}
                                   value={user.name}
                                 />
                               </div>
@@ -141,8 +135,6 @@ export default function Checkout() {
                                   class="form-control"
                                   name="email"
                                   autoComplete="email"
-                                  onChange={e =>
-                                    setUser({ ...user, email: e.target.value })}
                                   value={user.email}
                                 />
                               </div>
