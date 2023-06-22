@@ -3,13 +3,13 @@ import { getCurrentMovie } from "../../api/movieApi";
 import { Link } from "react-router-dom";
 import { ImTicket } from "react-icons/im";
 
-export default function CurrentMovieCard({movie}) {
+export default function CurrentMovieCard({ movie }) {
   const [currMovie, setCurrMovie] = useState();
 
   useEffect(() => {
     getCurrentMovie().then(res => {
-      console.log(res.trailer);
       setCurrMovie(res);
+      sessionStorage.setItem("movieId", res.id);
     });
   }, []);
 

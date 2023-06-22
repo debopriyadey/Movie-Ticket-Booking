@@ -6,10 +6,8 @@ export default function Navbar() {
 
   const logout = () => {
     sessionStorage.clear();
-    let userType = sessionStorage.getItem("role");
-    if (userType) {
-      setRole(userType);
-    }
+    setRole(false);
+    window.location.reload()
   };
 
   useEffect(() => {

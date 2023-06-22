@@ -20,6 +20,7 @@ export default function Login() {
         sessionStorage.setItem(key, res[key])
       })
       navigate('/')
+      window.location.reload()
     }).catch((err) => {
       alert("Invalid Credential")
     })

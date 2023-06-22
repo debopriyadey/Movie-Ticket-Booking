@@ -15,6 +15,7 @@ export default function AddedMovieCard({
   const handleScreeningUpdate = () => {
     updateMovieScreening(id).then((res) => {
       alert("screening updated");
+      sessionStorage.setItem("movieId", id)
       window.location.reload()
     })
   }
