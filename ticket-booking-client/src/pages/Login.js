@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { admin } from "../assets/data/admin";
 import "../css/login.css";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/userApi";
+
+import { UserContext } from "../context";
 
 export default function Login() {
   const [userDetails, setUserDetails] = useState({
@@ -11,16 +13,17 @@ export default function Login() {
     password: ""
   });
 
+  const { user, setUser } = useContext(UserContext)
+
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault()
     login(userDetails).then((res) => {
-      Object.keys(res).forEach (function(key, index) {
-        sessionStorage.setItem(key, res[key])
-      })
+      sessionStorage.setItem("userId", res.id)
+      setUser(res)
       navigate('/')
-      window.location.reload()
     }).catch((err) => {
       alert("Invalid Credential")
     })
@@ -59,7 +62,7 @@ export default function Login() {
                       placeholder="PASSWORD"
                       value={userDetails.password}
                       onChange={(e) =>
-                        setUserDetails({...userDetails, password: e.target.value })}
+                        setUserDetails({ ...userDetails, password: e.target.value })}
                       i
                     />
                   </div>

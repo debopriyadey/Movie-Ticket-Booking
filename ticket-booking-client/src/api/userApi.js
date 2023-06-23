@@ -6,6 +6,11 @@ export const validateRole = async id => {
   return data;
 };
 
+export const getById = async id => {
+  const { data } = await axios.get(`${userUri}/getById?id=${id}`);
+  return data;
+};
+
 export const login = async user => {
   console.log(user);
   const { data } = await axios.post(`${userUri}/login`, user);

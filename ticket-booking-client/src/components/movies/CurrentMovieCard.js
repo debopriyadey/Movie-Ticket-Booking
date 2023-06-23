@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getCurrentMovie } from "../../api/movieApi";
 import { Link } from "react-router-dom";
 import { ImTicket } from "react-icons/im";
+import { MovieContext } from "../../context";
 
 export default function CurrentMovieCard({ movie }) {
   const [currMovie, setCurrMovie] = useState();
 
+  const { movieId, setMovieId } = useContext(MovieContext)
+
   useEffect(() => {
     getCurrentMovie().then(res => {
       setCurrMovie(res);
+      setMovieId(res.id)
       sessionStorage.setItem("movieId", res.id);
     });
   }, []);

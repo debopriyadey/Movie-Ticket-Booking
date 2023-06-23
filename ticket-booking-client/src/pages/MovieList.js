@@ -18,6 +18,12 @@ export default function MovieList() {
     }
   ]);
 
+  const handleGetAllMovies = () => {
+    getAllMovie().then(res => {
+      setMovieList(res);
+    });
+  };
+
   useEffect(() => {
     getAllMovie().then(res => {
       setMovieList(res);
@@ -37,10 +43,13 @@ export default function MovieList() {
           releaseDate={movie.releaseDate}
           description={movie.description}
           screening={movie.screening}
+          handleGetAllMovies={handleGetAllMovies}
         />
       )}
       <Link to={"/addmovies"}>
-        <button className="btn btn-primary add-movie-btn"><MdAddCircle size={20} />  Add Movie </button>
+        <button className="btn btn-primary add-movie-btn">
+          <MdAddCircle size={20} /> Add Movie{" "}
+        </button>
       </Link>
     </div>
   );

@@ -127,9 +127,10 @@ export default function Tickets() {
 
   useEffect(() => {
     var date = new Date();
+    var newDt = moment(date).add(1, "days")
     let arr = [];
     for (let index = 0; index < 5; index++) {
-      var dt = moment(date).add(index, "days");
+      var dt = moment(newDt).add(index, "days");
       arr.push(dt);
     }
     setDates(arr);

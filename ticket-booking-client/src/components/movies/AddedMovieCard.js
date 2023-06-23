@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { updateMovieScreening } from "../../api/movieApi";
+import { MovieContext } from "../../context";
 
 export default function AddedMovieCard({
   id,
@@ -8,15 +9,18 @@ export default function AddedMovieCard({
   poster,
   releaseDate,
   description,
-  screening
+  screening,
+  handleGetAllMovies
 }) {
   
 
+  const { movieId, setMovieId } = useContext(MovieContext)
+
   const handleScreeningUpdate = () => {
     updateMovieScreening(id).then((res) => {
-      alert("screening updated");
-      sessionStorage.setItem("movieId", id)
-      window.location.reload()
+      alert("Screening Updated");
+      setMovieId(res.id);
+      handleGetAllMovies()
     })
   }
 

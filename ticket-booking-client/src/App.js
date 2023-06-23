@@ -1,48 +1,51 @@
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Movies from "./pages/Movies";
-import Tickets from "./pages/Tickets";
-import Checkout from "./pages/Checkout";
-import MovieForm from "./pages/MovieForm";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import MovieList from "./pages/MovieList";
 import { useEffect, useState } from "react";
 
+import { MovieContext, UserContext } from "./context";
+import BrowseRouter from "./BrowseRouter";
+import { getById } from "./api/userApi";
+import { getCurrentMovie } from "./api/movieApi";
+
 function App() {
-  const [role, setRole] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    role: ""
+  });
+
+  const [movieId, setMovieId] = useState("");
+
   useEffect(() => {
-    let userType = sessionStorage.getItem("role");
-    if (userType) {
-      setRole(userType);
+    const id = sessionStorage.getItem("userId");
+    if (id) {
+      try {
+        getById(id).then(res => {
+          setUser(res);
+        });
+        getCurrentMovie().then(res => {
+          setMovieId(res.id);
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
-    console.log(role)
   }, []);
 
+  useEffect(
+    () => {
+      console.log(user);
+    },
+    [user]
+  );
 
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-        <Route path="*" element={<Login />}/>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {role == "admin" &&
-            <>
-              <Route path="/addmovies" element={<MovieForm />} />
-              <Route path="/movielist" element={<MovieList />} />
-            </>}
-          {role == "user" &&
-            <>
-              <Route path="/tickets" element={<Tickets />} />
-              <Route path="/checkout" element={<Checkout />} />
-            </>}
-        </Routes>
-      </Router>
-    </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      <MovieContext.Provider value={{ movieId, setMovieId }}>
+        <div className="App">
+          <BrowseRouter />
+        </div>
+      </MovieContext.Provider>
+    </UserContext.Provider>
   );
 }
 
