@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MovieList from "./pages/MovieList";
 import { UserContext } from "./context";
+import BookingHistory from './pages/BookingHistory';
 
 export default function BrowseRouter() {
 
@@ -30,6 +31,7 @@ export default function BrowseRouter() {
                     </>}
                 {user.role == "user" &&
                     <>
+                        <Route path="/history" element={<BookingHistory />} />
                         <Route path="/tickets" element={<Tickets />} />
                         <Route path="/checkout" element={<Checkout />} />
                     </>}

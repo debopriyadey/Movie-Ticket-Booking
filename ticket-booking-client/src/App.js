@@ -30,14 +30,7 @@ function App() {
       }
     }
   }, []);
-
-  useEffect(
-    () => {
-      console.log(user);
-    },
-    [user]
-  );
-
+  
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <MovieContext.Provider value={{ movieId, setMovieId }}>

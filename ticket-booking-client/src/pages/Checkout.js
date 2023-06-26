@@ -74,18 +74,18 @@ export default function Checkout() {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-8">
-            <div class="container">
-              <div class="col mt-4 pt-2" id="accordions">
-                <div class="component-wrapper rounded shadow">
-                  <div class="p-4 border-bottom">
-                    <h4 class="title mb-0">Checkout</h4>
+            <div className="container">
+              <div className="col mt-4 pt-2" id="accordions">
+                <div className="component-wrapper rounded shadow">
+                  <div className="p-4 border-bottom">
+                    <h4 className="title mb-0">Checkout</h4>
                   </div>
-                  <div class="p-4">
-                    <div class="accordion pt-2" id="buyingquestion">
-                      <div class="accordion-item rounded mt-2">
-                        <h2 class="accordion-header" id="headingOne">
+                  <div className="p-4">
+                    <div className="accordion pt-2" id="buyingquestion">
+                      <div className="accordion-item rounded mt-2">
+                        <h2 className="accordion-header" id="headingOne">
                           <button
-                            class="accordion-button border-0 bg-light collapsed"
+                            className="accordion-button border-0 bg-light collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseOne"
@@ -97,13 +97,13 @@ export default function Checkout() {
                         </h2>
                         <div
                           id="collapseOne"
-                          class="accordion-collapse border-0 collapse"
+                          className="accordion-collapse border-0 collapse"
                           aria-labelledby="headingOne"
                           data-bs-parent="#buyingquestion"
                         >
-                          <div class="accordion-body text-muted bg-white">
+                          <div className="accordion-body text-muted bg-white">
                             <form className="user-form">
-                              <div class="form-group">
+                              <div className="form-group">
                                 <label
                                   for="NameInput"
                                   className="mx-2"
@@ -113,13 +113,13 @@ export default function Checkout() {
                                 </label>
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="Firstname"
                                   autoComplete
                                   value={user.name}
                                 />
                               </div>
-                              <div class="form-group">
+                              <div className="form-group">
                                 <label
                                   for="NameInput"
                                   className="mx-2 mt-2"
@@ -129,7 +129,7 @@ export default function Checkout() {
                                 </label>
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="email"
                                   autoComplete="email"
                                   value={user.email}
@@ -150,10 +150,10 @@ export default function Checkout() {
                         </div>
                       </div>
 
-                      <div class="accordion-item rounded mt-2">
-                        <h2 class="accordion-header" id="headingTwo">
+                      <div className="accordion-item rounded mt-2">
+                        <h2 className="accordion-header" id="headingTwo">
                           <button
-                            class="accordion-button border-0 bg-light collapsed"
+                            className="accordion-button border-0 bg-light collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseTwo"
@@ -166,11 +166,11 @@ export default function Checkout() {
                         {showPayment &&
                           <div
                             id="collapseTwo"
-                            class="accordion-collapse border-0 collapse"
+                            className="accordion-collapse border-0 collapse"
                             aria-labelledby="headingTwo"
                             data-bs-parent="#buyingquestion"
                           >
-                            <div class="accordion-body text-muted bg-white">
+                            <div className="accordion-body text-muted bg-white">
                               <p>
                                 SEATS:{" "}
                                 {seats.map(s =>
@@ -197,10 +197,10 @@ export default function Checkout() {
                             </div>
                           </div>}
                       </div>
-                      <div class="accordion-item rounded mt-2">
-                        <h2 class="accordion-header" id="headingThree">
+                      <div className="accordion-item rounded mt-2">
+                        <h2 className="accordion-header" id="headingThree">
                           <button
-                            class="accordion-button border-0 bg-light collapsed"
+                            className="accordion-button border-0 bg-light collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseThree"
@@ -213,11 +213,11 @@ export default function Checkout() {
                         {showTicket &&
                           <div
                             id="collapseThree"
-                            class="accordion-collapse border-0 collapse"
+                            className="accordion-collapse border-0 collapse"
                             aria-labelledby="headingThree"
                             data-bs-parent="#buyingquestion"
                           >
-                            <div class="accordion-body text-muted bg-white">
+                            <div className="accordion-body text-muted bg-white">
                               <p>
                                 NAME : {user.name}
                               </p>
@@ -259,16 +259,16 @@ export default function Checkout() {
           </div>
           <div className="col-sm-12 col-md-4 d-flex justify-content-center">
             <div
-              class="card mt-5 ticket-card"
+              className="card mt-5 ticket-card"
               style={{
                 width: "18rem",
                 backgroundImage: `url(https://images.unsplash.com/photo-1545129139-1beb780cf337?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80)`
               }}
             >
-              <div class="transbox text-center">
+              <div className="transbox text-center">
                 {generate &&
                   <div>
-                    <div class="card-header">YOU'VE GOT TICKETS!</div>
+                    <div className="card-header">YOU'VE GOT TICKETS!</div>
                     <small>You may use the code below at entrance</small>
                   </div>}
                 <div className="card tickets-detail">

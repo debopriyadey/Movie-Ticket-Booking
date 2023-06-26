@@ -15,7 +15,7 @@ export default function MovieForm() {
     director: "",
     description: "",
     trailer: "",
-    screening: true,
+    screening: false,
     price: 180
   });
 
@@ -41,14 +41,14 @@ export default function MovieForm() {
         <div className="row movie-form-cont">
           {/* <form className=""> */}
           <div className="col-sm-12 col-md-6">
-            <div class="form-group row">
-              <label class="col-form-label">Title</label>
+            <div className="form-group row">
+              <label className="col-form-label">Title</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="title"
                   onChange={e => setMovie({ ...movie, title: e.target.value })}
                   value={movie.title}
@@ -57,14 +57,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
-            <div class="form-group row">
-              <label class="col-form-label">Director</label>
+            <div className="form-group row">
+              <label className="col-form-label">Director</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="director"
                   onChange={e =>
                     setMovie({ ...movie, director: e.target.value })}
@@ -74,15 +74,15 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-12">
-            <div class="form-group row">
-              <label for="inputPassword" class="col-form-label">
+            <div className="form-group row">
+              <label for="inputPassword" className="col-form-label">
                 Background Image
               </label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="bgImg"
                   onChange={e => setMovie({ ...movie, bgImg: e.target.value })}
                   value={movie.bgImg}
@@ -91,14 +91,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-12">
-            <div class="form-group row">
-              <label class="col-form-label">Poster</label>
+            <div className="form-group row">
+              <label className="col-form-label">Poster</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="poster"
                   onChange={e => setMovie({ ...movie, poster: e.target.value })}
                   value={movie.poster}
@@ -107,14 +107,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-12">
-            <div class="form-group row">
-              <label class="col-form-label">Trailer</label>
+            <div className="form-group row">
+              <label className="col-form-label">Trailer</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="trailer"
                   onChange={e => setMovie({ ...movie, trailer: e.target.value })}
                   value={movie.trailer}
@@ -123,14 +123,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">
-            <div class="form-group row">
-              <label class="col-form-label">Release Date</label>
+            <div className="form-group row">
+              <label className="col-form-label">Release Date</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="releaseDate"
                   onChange={e =>
                     setMovie({ ...movie, releaseDate: e.target.value })}
@@ -140,14 +140,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">
-            <div class="form-group row">
-              <label class="col-form-label">Language</label>
+            <div className="form-group row">
+              <label className="col-form-label">Language</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="language"
                   onChange={e =>
                     setMovie({ ...movie, language: e.target.value })}
@@ -157,14 +157,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">
-            <div class="form-group row">
-              <label class="col-form-label">Runtime</label>
+            <div className="form-group row">
+              <label className="col-form-label">Runtime</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="runtime"
                   onChange={e =>
                     setMovie({ ...movie, runtime: e.target.value })}
@@ -174,14 +174,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">
-            <div class="form-group row">
-              <label class="col-form-label">Rating</label>
+            <div className="form-group row">
+              <label className="col-form-label">Rating</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="rating"
                   onChange={e => setMovie({ ...movie, rating: e.target.value })}
                   value={movie.rating}
@@ -191,15 +191,15 @@ export default function MovieForm() {
           </div>
 
           <div className="col-sm-12">
-            <div class="form-group row">
-              <label class="col-form-label">Description</label>
+            <div className="form-group row">
+              <label className="col-form-label">Description</label>
               <br />
-              <div class="">
+              <div className="">
                 <textarea
                   rows={4}
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="description"
                   onChange={e =>
                     setMovie({ ...movie, description: e.target.value })}
@@ -209,14 +209,14 @@ export default function MovieForm() {
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">
-            <div class="form-group row">
-              <label class="col-form-label">Ticket Price</label>
+            <div className="form-group row">
+              <label className="col-form-label">Ticket Price</label>
               <br />
-              <div class="">
+              <div className="">
                 <input
                   type="text"
                   readonly
-                  class="form-control"
+                  className="form-control"
                   id="price"
                   onChange={e => setMovie({ ...movie, price: e.target.value })}
                   value={movie.price}

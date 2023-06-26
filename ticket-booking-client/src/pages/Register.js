@@ -30,23 +30,23 @@ export default function Register() {
 
   return (
     <div className="login-sec">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-2" />
-          <div class="col-lg-6 col-md-8 login-box">
-            <div class="col-lg-12 login-key">
-              <i class="fa fa-key" aria-hidden="true" />
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3 col-md-2" />
+          <div className="col-lg-6 col-md-8 login-box">
+            <div className="col-lg-12 login-key">
+              <i className="fa fa-key" aria-hidden="true" />
             </div>
-            <div class="col-lg-12 login-title">Register</div>
+            <div className="col-lg-12 login-title">Register</div>
 
-            <div class="col-lg-12 login-form">
-              <div class="col-lg-12 login-form">
+            <div className="col-lg-12 login-form">
+              <div className="col-lg-12 login-form">
                 <form>
-                <div class="form-group">
-                    {/* <label class="form-control-label">USERNAME</label> */}
+                <div className="form-group">
+                    {/* <label className="form-control-label">USERNAME</label> */}
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="USERNAME"
                       value={userDetails.name}
                       onChange={e =>
@@ -56,11 +56,11 @@ export default function Register() {
                         })}
                     />
                   </div>
-                  <div class="form-group">
-                    {/* <label class="form-control-label">USERNAME</label> */}
+                  <div className="form-group">
+                    {/* <label className="form-control-label">USERNAME</label> */}
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="EMAIL"
                       value={userDetails.email}
                       onChange={e =>
@@ -70,11 +70,11 @@ export default function Register() {
                         })}
                     />
                   </div>
-                  <div class="form-group">
-                    {/* <label class="form-control-label">PASSWORD</label> */}
+                  <div className="form-group">
+                    {/* <label className="form-control-label">PASSWORD</label> */}
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       placeholder="PASSWORD"
                       value={userDetails.password}
                       onChange={e =>
@@ -86,12 +86,12 @@ export default function Register() {
                     />
                   </div>
 
-                  <div class="col-lg-12 loginbttm">
-                    <div class="col-lg-6 login-btm login-text" />
-                    <div class="col-lg-6 login-btm login-button">
+                  <div className="col-lg-12 loginbttm">
+                    <div className="col-lg-6 login-btm login-text" />
+                    <div className="col-lg-6 login-btm login-button">
                       <button
                         type="submit"
-                        class="btn btn-outline-primary"
+                        className="btn btn-outline-primary"
                         onClick={checkAdmin}
                       >
                         REGISTER
@@ -101,7 +101,7 @@ export default function Register() {
                 </form>
               </div>
             </div>
-            <div class="col-lg-3 col-md-2" />
+            <div className="col-lg-3 col-md-2" />
           </div>
         </div>
       </div>

@@ -28,8 +28,6 @@ export default function Movies() {
       });
   }, []);
 
-  console.log(movies);
-
   return (
     <div className="movie-sec">
       <Navbar />
@@ -43,7 +41,7 @@ export default function Movies() {
           <h4 className="sec-title">Upcoming Movies</h4>
         </div>
         <div className="row up-movie-row">
-          {movies.map(movie => <Card movie={movie} />)}
+          {movies.map(movie => <Card key={movie.id} movie={movie} />)}
         </div>
       </div>
     </div>

@@ -12,7 +12,6 @@ export const getById = async id => {
 };
 
 export const login = async user => {
-  console.log(user);
   const { data } = await axios.post(`${userUri}/login`, user);
   return data;
 };

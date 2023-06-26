@@ -81,8 +81,6 @@ export default function Tickets() {
     var tempArr = booking;
     tempArr[ri][ci] = -1;
     setSeats([...seats, `${alpha[ci]}${ri}`])
-
-    console.log(tempArr, seats)
     setBooking(tempArr)
   }
 
@@ -93,7 +91,6 @@ export default function Tickets() {
   const selectDT = (dt, tm) => {
     let queryDate = moment(dt).format('L')
     getBookingByDateAndShift({screeningDate:  queryDate, screeningShift: tm}).then((res) => {
-      console.log(booking)
       if (res.length > 0) {
         res.map((bookedSeats) => {
           if (bookedSeats.seats.length > 0) {

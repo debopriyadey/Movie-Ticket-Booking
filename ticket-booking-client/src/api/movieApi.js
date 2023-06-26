@@ -6,6 +6,11 @@ export const getAllMovie = async () => {
     return data;
 }
 
+export const getMoviesById = async (id) => {
+    const { data } = await axios.get(`${movieUri}/getMoviesById?id=${id}`);
+    return data;
+}
+
 export const getCurrentMovie = async () => {
     const { data } = await axios.get(`${movieUri}/getCurrentMovie`);
     return data;
